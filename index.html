@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Wedding Invitation</title>
+  <style>
+    body {
+      margin: 0; padding: 0;
+      display: flex; justify-content: center; align-items: center;
+      height: 100vh;
+      background: #f8f4f0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      overflow: hidden;
+    }
+
+    /* Ảnh trái tim đặt giữa trang */
+    .cover-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%); /* Đẩy ảnh lên trên một chút để đuôi không bị cắt */
+  width: 200px;
+  height: 150px; /* Tăng chiều cao để đủ chứa hình trái tim */
+  object-fit: cover;
+  clip-path: path("M100,30 C90,0 0,0 0,60 C0,100 100,170 100,220 C100,170 200,100 200,60 C200,0 110,0 100,30 Z");
+  transition: opacity 1s ease;
+  z-index: 2;
+
+}
+
+    .card {
+      position: relative;
+      width: 600px; height: 400px;
+      perspective: 1200px;
+    }
+
+    .flap {
+      position: absolute; width: 300px; height: 100%;
+      background: #fde7e9;
+      border: 1px solid #e2cfcf;
+      transform-origin: left;
+      backface-visibility: hidden;
+      transition: transform 1s ease;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+
+    .flap.right {
+      right: 0;
+      transform-origin: right;
+      background: #f0e7fd;
+    }
+
+    .content {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: white;
+      padding: 40px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.8s ease 1s, transform 0.8s ease 1s;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin: 0.5em 0;
+      color: #5a3e3e;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      color: #7a5e5e;
+      margin: 0.3em 0;
+    }
+
+    p {
+      margin: 0.2em 0;
+      color: #5a3e3e;
+      font-size: 1.1rem;
+    }
+
+    .btn-open {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      background: #5a3e3e;
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+      z-index: 3;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Ảnh trái tim giữa trang -->
+<img class="cover-image" src="file:///C:/Users/hoang/Downloads/a55ec88a-703b-45af-a59d-e384f700f991.jpg" alt="Wedding Cover">
+
+<div class="card">
+  <div class="flap left"></div>
+  <div class="flap right"></div>
+  <div class="content">
+    <h1>Hoàng Thu Hà & Nguyễn Giang Nam</h1>
+    <h2>You’re warmly invited to our wedding celebration with love and joy.</h2>
+    
+    <p><strong>Time:</strong> 11:00 am , 26.07.2025</p>
+    <p><strong>The wedding will take place at:</strong> 38 Kamira Avenue, Villawood 2163</p>
+  </div>
+  <button class="btn-open">Click to open the Invitation</button>
+</div>
+
+<script>
+  const left = document.querySelector('.flap.left');
+  const right = document.querySelector('.flap.right');
+  const content = document.querySelector('.content');
+  const btn = document.querySelector('.btn-open');
+  const cover = document.querySelector('.cover-image');
+
+  btn.addEventListener('click', () => {
+    left.style.transform = 'rotateY(-180deg)';
+    right.style.transform = 'rotateY(180deg)';
+    content.style.opacity = '1';
+    content.style.transform = 'scale(1)';
+    btn.style.display = 'none';
+
+    // Ẩn ảnh trái tim sau khi mở thiệp
+    cover.style.opacity = '0';
+    setTimeout(() => cover.style.display = 'none', 1000);
+  });
+</script>
+
+</body>
+</html>
